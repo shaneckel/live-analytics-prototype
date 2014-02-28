@@ -8,10 +8,13 @@ var _               = require('underscore'),
 module.exports = {
   
   googleStrategy: function(ipaddress, port) {
+    
+    var baseUrl     = "http://nomorerack-shaneckel.rhcloud.com/";
 
-    var baseUrl     = "http://nomorerack-shaneckel.rhcloud.com/" ,
-    //var baseUrl     = "http://" + ipaddress + ":" + port + "/" ,
-        authReturn  = baseUrl + "auth/google/return";
+    if(ipaddress === "localhost")
+      baseUrl = "http://" + ipaddress + ":" + port + "/";
+
+    var authReturn  = baseUrl + "auth/google/return";
 
     return new googleStrategy({
       returnURL: process.env.GOOGLE_RETURN_URL || authReturn,
