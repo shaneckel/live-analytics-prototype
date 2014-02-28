@@ -11,6 +11,9 @@ var express         = require('express'),
 
 var app             = express();
 
+var ipaddress       = process.env.OPENSHIFT_NODEJS_IP || "localhost";
+    port            = process.env.OPENSHIFT_NODEJS_PORT || 4000;
+
 app.configure(function () {
     app.set('views', __dirname + '/public/views');
     app.set('view engine', 'jade');    
@@ -34,18 +37,12 @@ app.configure(function () {
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.use(user.googleStrategy());
+passport.use(user.googleStrategy(ipaddress, port));
 passport.serializeUser(user.serializeUser);
 passport.deserializeUser(user.deserializeUser);
 
 app.use(app.router);
 
 require('./routes.js')(app);
-
-app.listen(
-    process.env.OPENSHIFT_NODEJS_PORT || 4000,
-    process.env.OPENSHIFT_NODEJS_IP || "localhost", 
-    function(){ 
-        console.log("\n--- nomorerack analytics ---\n") 
-    });
+ 
+app.listen( port, ipaddress, function() { console.log("\n--- nomorerack analytics ---\n") });
