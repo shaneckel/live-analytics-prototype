@@ -1,15 +1,16 @@
 #!/bin/env node
-//nomorerack 
 
-var express       = require('express'),
-    passport      = require('passport'),
-    flash         = require('connect-flash'),
-    path          = require('path'),
-    routes        = require('./routes'),
-    user          = require('./user.js');
+// nomorerack analytics 
 
-var app           = express();
-  
+var express         = require('express'),
+    passport        = require('passport'),
+    flash           = require('connect-flash'),
+    path            = require('path'),
+    routes          = require('./routes'),
+    user            = require('./user.js');
+
+var app             = express();
+
 app.configure(function () {
     app.set('views', __dirname + '/public/views');
     app.set('view engine', 'jade');    
@@ -43,7 +44,7 @@ app.use(app.router);
 require('./routes.js')(app);
 
 app.listen(
-    process.env.OPENSHIFT_NODEJS_PORT || 3000,
+    process.env.OPENSHIFT_NODEJS_PORT || 4000,
     process.env.OPENSHIFT_NODEJS_IP || "localhost", 
     function(){ 
         console.log("\n--- nomorerack analytics ---\n") 

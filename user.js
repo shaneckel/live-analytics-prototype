@@ -9,8 +9,8 @@ module.exports = {
   
   googleStrategy: function() {
     return new googleStrategy({
-      returnURL: process.env.GOOGLE_RETURN_URL || "http://localhost:3000/auth/google/return",
-      realm: process.env.GOOGLE_REALM || "http://localhost:3000/",
+      returnURL: process.env.GOOGLE_RETURN_URL || "http://localhost:4000/auth/google/return",
+      realm: process.env.GOOGLE_REALM || "http://localhost:4000/",
       stateless: true
     },
     function(identifier, profile, done) {

@@ -3,18 +3,19 @@ html(lang='en')
   head
     meta(charset='utf-8')
     meta(name="viewport", content="width=device-width", initial-scale="1.0", maximum-scale="1", user-scalable="no")
-   
     title Branding Brand's live analytics for No More Rack.
-
     link(href='http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,300italic,700,700italic',rel='stylesheet', type='text/css')
     link(href="css/main.css", rel="stylesheet")
 
-  body
-    main
-
-      h1 No More Rack / You're logged in. 
+  body(ng-app="nomorerack")
+    main(ng-controller="dataPull")
+      h1 No More Rack | 
+        em You're logged in. 
       p 
         a(href="/auth/logout") Logout
-      p #{message} #{username}
+      p #{message} | #{user.username}
+      p {{data}}
 
+    script(src='/js/angular.min.js')
+    script(src='/js/elasticsearch.angular.min.js')
     script(src='/js/init.js')
