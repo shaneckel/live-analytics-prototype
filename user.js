@@ -22,9 +22,10 @@ module.exports = {
       stateless: true
     },
     function(identifier, profile, done) {
-   
-      if(profile.emails[0].value === "shane.eckel@brandingbrand.com"){  
-      
+
+
+      if(profile.emails[0].value.indexOf("@brandingbrand.com") !== -1){
+ 
         user = {
           username: profile.name.givenName || 'Admin',
           email: profile.emails[0].value

@@ -11,10 +11,9 @@ html(lang='en')
 
   body
     main
-      h1 No More Rack / Log in
+      p No More Rack / Log in
       p 
         a(href="/auth/google") Log in with google 
-      p #{message}
 
       if (message.length)
-        h2.error #{message}
+      p.error #{message}

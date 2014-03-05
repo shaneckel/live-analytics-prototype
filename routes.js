@@ -24,7 +24,6 @@ module.exports = function(app) {
     })
 
     .get('/home', ensureAuthenticated , function(req, res) {
-      console.log(req.user);
       res.render('home', { message: "welcome home", user : req.user});
     })
     
