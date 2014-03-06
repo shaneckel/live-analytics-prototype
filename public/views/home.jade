@@ -11,12 +11,17 @@ html(lang='en')
     main(ng-controller="dataPull")
       h1 No More Rack | 
         em You're logged in. 
-      p 
-        a(href="/auth/logout") Logout
-      p #{message} | #{user.username}
+          a(href="/auth/logout") Logout
+      p Welcome | #{user.username}
+      hr
+      p total on {{date}}: {{today}}
+      p last 30 minutes: {{last30}}
       br
-      h1 total on {{date}} : {{facets}}
-      p(ng-repeat="source in hits") ${{source._source.receipt.summary.total}} {{source._source.receipt.summary.currency}} to {{source._source.email}}
+      hr
+      h1 last 10 purchase 
+      p(ng-repeat="source in hits") ${{source._source.receipt.summary.total}} {{source._source.receipt.summary.currency}}
+      hr
+      p total of all time: {{facets}}
 
     script(src='/js/moment.min.js')
     script(src='/js/accounting.min.js')

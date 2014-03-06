@@ -5,11 +5,9 @@ var app = angular.module('nomorerack', ['elasticsearch']);
 
 app.controller('dataPull', function($scope, es) {
   
-
-  $scope.date = moment().format("MMM Do, YYYY");;
+  $scope.date = moment().format("MMM Do, YYYY");
   
   es.search({
-    index: 'events-' + moment().format('YYYY.MM.DD'),
     size: 10, 
     body :{
       query: {
@@ -46,23 +44,51 @@ app.controller('dataPull', function($scope, es) {
         }
       },
       facets: {
-        "total_money": {
-            terms_stats: {
-              key_field : "event",
-              value_field : "receipt.summary.total"
-            }
-        }
+        total_money: {
+          terms_stats: {
+            key_field : "event",
+            value_field : "receipt.summary.total"
+          }
+        },
+        last30 : {
+          range : {
+            key_field : "_timestamp",
+            value_field : "receipt.summary.total",
+            ranges : [
+              { 
+                from: moment().subtract('minutes', 35).valueOf(), 
+                to: moment().valueOf()
+              }
+            ]
+          }
+        },
+        today : {
+          range : {
+            key_field : "_timestamp",
+            value_field : "receipt.summary.total",
+            ranges : [
+              { 
+                from: moment().startOf('day').valueOf(), 
+                to: moment().valueOf()
+              }
+            ]
+          }
+        }        
       }
     }
+                  
 
   }).then(function (resp) {
+
     console.log(resp);
+      
     $scope.hits = resp.hits.hits;
     $scope.facets = accounting.formatMoney(resp.facets.total_money.terms[0].total);
-   
-    console.dir(resp.hits.hits);
+    $scope.last30 = accounting.formatMoney(resp.facets.last30.ranges[0].total); 
+    $scope.today = accounting.formatMoney(resp.facets.today.ranges[0].total); 
+
   }, function (err) {
-    console.log(err);
+    console.log(err); 
     $scope.data = err;
   });
 });
