@@ -8,23 +8,54 @@ html(lang='en')
     link(href="css/main.css", rel="stylesheet")
 
   body(ng-app="nomorerack")
-    main(ng-controller="dataPull")
+    main
       h1 No More Rack | 
         em You're logged in. 
           a(href="/auth/logout") Logout
+
       p Welcome | #{user.username}
-      hr
-      p total on {{date}}: {{today}}
-      p last 30 minutes: {{last30}}
+
       br
       hr
-      h1 last 10 purchase 
-      p(ng-repeat="source in hits") ${{source._source.receipt.summary.total}} {{source._source.receipt.summary.currency}}
+
+      div(ng-controller="LiveCtrl")
+        p current break down
+        p {{currentDate}}
+        div(ng-repeat="total in liveTotals track by $index")
+          p {{total.start}} - {{total.finish}} : {{total.price}}
+
+      br
       hr
-      p total of all time: {{facets}}
+      section(ng-controller="datedCtrl")
+        div.last24
+          p last 24 hours break down 
+          p from {{yesterday}} to {{currentDate}}. 
+          div(ng-repeat="hours in last24 track by $index")
+            p {{hours.start}} - {{hours.finish}} : {{hours.price}}
+          p total from {{last24_total_start}} to {{last24_total_end}}.
+          p {{last24_total}}
+        br
+        hr
+
+        div.sevendays
+          p last 7 days break down    
+          p from {{yesterday}} to {{currentDate}}. 
+          div(ng-repeat="days in last7 track by $index")
+            p {{days.start}} - {{days.finish}} : {{days.price}}
+          p total from {{last7_total_start}} to {{last7_total_end}}.
+          p {{last7_total}}
+
+        br
+        hr
+
+        div.alltime
+          p all time breakdown  
+          p {{facets}}
+      
 
     script(src='/js/moment.min.js')
     script(src='/js/accounting.min.js')
-    script(src='/js/angular.min.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular-local-storage.min.js')
     script(src='/js/elasticsearch.angular.min.js')
     script(src='/js/init.js')
