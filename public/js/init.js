@@ -256,8 +256,6 @@ app.controller('datedCtrl', function($scope, es) {
 
 });
 
-
-
 app.service('es', function (esFactory) {
   return esFactory({
     host: '72.2.112.177:9200',
