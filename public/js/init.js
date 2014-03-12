@@ -51,16 +51,16 @@ app.controller('LiveCtrl', function($scope, Timer, es) {
                 key_field : "_timestamp",
                 value_field : "receipt.summary.total",
                 ranges : [
-                  { from : moment().subtract('hours', 4).subtract('minutes', 15).valueOf(),  to : moment().subtract('hours',  4).valueOf() },
-                  { from : moment().subtract('hours', 4).subtract('minutes', 30).valueOf(),  to : moment().subtract('hours',  4).subtract('minutes', 15).valueOf() },
-                  { from : moment().subtract('hours', 4).subtract('minutes', 45).valueOf(),  to : moment().subtract('hours',  4).subtract('minutes', 30).valueOf() },
-                  { from : moment().subtract('hours', 4).subtract('minutes', 60).valueOf(),  to : moment().subtract('hours',  4).subtract('minutes', 45).valueOf() },
-                  { from : moment().subtract('hours', 4).subtract('minutes', 75).valueOf(),  to : moment().subtract('hours',  4).subtract('minutes', 60).valueOf() },
-                  { from : moment().subtract('hours', 4).subtract('minutes', 90).valueOf(),  to : moment().subtract('hours',  4).subtract('minutes', 75).valueOf() },
-                  { from : moment().subtract('hours', 4).subtract('minutes', 105).valueOf(), to : moment().subtract('hours',  4).subtract('minutes', 90).valueOf() },
-                  { from : moment().subtract('hours', 4).subtract('minutes', 120).valueOf(), to : moment().subtract('hours',  4).subtract('minutes', 105).valueOf() },
-                  { from : moment().subtract('hours', 4).subtract('minutes', 135).valueOf(), to : moment().subtract('hours',  4).subtract('minutes', 120).valueOf() },
-                  { from : moment().subtract('hours', 4).subtract('minutes', 150).valueOf(), to : moment().subtract('hours',  4).subtract('minutes', 135).valueOf() },
+                  { from : moment().subtract('minutes', 15).valueOf(),  to : moment().valueOf() },
+                  { from : moment().subtract('minutes', 30).valueOf(),  to : moment().subtract('minutes', 15).valueOf() },
+                  { from : moment().subtract('minutes', 45).valueOf(),  to : moment().subtract('minutes', 30).valueOf() },
+                  { from : moment().subtract('minutes', 60).valueOf(),  to : moment().subtract('minutes', 45).valueOf() },
+                  { from : moment().subtract('minutes', 75).valueOf(),  to : moment().subtract('minutes', 60).valueOf() },
+                  { from : moment().subtract('minutes', 90).valueOf(),  to : moment().subtract('minutes', 75).valueOf() },
+                  { from : moment().subtract('minutes', 105).valueOf(), to : moment().subtract('minutes', 90).valueOf() },
+                  { from : moment().subtract('minutes', 120).valueOf(), to : moment().subtract('minutes', 105).valueOf() },
+                  { from : moment().subtract('minutes', 135).valueOf(), to : moment().subtract('minutes', 120).valueOf() },
+                  { from : moment().subtract('minutes', 150).valueOf(), to : moment().subtract('minutes', 135).valueOf() },
                 ]
               }
             }      
