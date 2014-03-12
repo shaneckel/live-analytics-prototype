@@ -11,7 +11,7 @@ header{
   h1{
     @include flex(1);
     color: $red;
-    padding: 1em 2.5%;
+    padding: .5em 2.5% .5em 2.5%;
     margin-top: $load-bar-height;
     border-bottom: $navborderB;
     font-size: 1.6em;
