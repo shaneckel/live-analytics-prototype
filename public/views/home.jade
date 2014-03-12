@@ -7,7 +7,7 @@ html(lang='en')
     link(href='http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,300italic,700,700italic',rel='stylesheet', type='text/css')
     link(href="css/main.css", rel="stylesheet")
 
-  body(ng-app="nomorerack")
+  body(ng-app="nomorerack" )
 
     header
       h1 MCI 
@@ -15,7 +15,7 @@ html(lang='en')
       p Welcome #{user.username} |  
         span  
           a(href="/auth/logout") Logout
-    main
+    main(data-ng-cloak)
       article.livedata(ng-controller="LiveCtrl")
         
         section.live
