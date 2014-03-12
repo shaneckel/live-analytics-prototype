@@ -15,9 +15,18 @@ html(lang='en')
       p Welcome #{user.username} |  
         span  
           a(href="/auth/logout") Logout
+
     main(data-ng-cloak)
       article.livedata(ng-controller="LiveCtrl")
         
+        nvd3-multi-bar-chart(
+          data="exampleData",
+          id="exampleId",
+          height="250",
+          showXAxis="true",
+          showYAxis="true",
+          color="colorFunction()")
+          
         section.live
           h1 Current break down
           h2 {{currentDate}}
@@ -25,7 +34,6 @@ html(lang='en')
             p {{total.start}} - {{total.finish}} : {{total.price}}
 
       article.olddata(ng-controller="datedCtrl")
-
         section.last24
           h1 Last 24 hours break down
           h2 {{yesterday}} to {{currentDate}}. 
@@ -44,7 +52,12 @@ html(lang='en')
 
     script(src='/js/moment.min.js')
     script(src='/js/accounting.min.js')
-    script(src='/js/angular.min.js')
-    script(src='/js/angular-local-storage.min.js')
+
+    script(src='/js/angular.js')
+
+    script(src='/js/d3.v3.min.js')
+    script(src='/js/nv.d3.min.js')
+    script(src='/js/angular-nvd3-directive.min.js')
+
     script(src='/js/elasticsearch.angular.min.js')
     script(src='/js/init.js')

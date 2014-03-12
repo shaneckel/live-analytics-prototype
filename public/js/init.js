@@ -1,7 +1,6 @@
-
 // nomorerack.com live analytics 
 
-var app = angular.module('nomorerack', ['elasticsearch']);
+var app = angular.module('nomorerack', ['elasticsearch', 'nvd3ChartDirectives']);
 
 app.controller('LiveCtrl', function($scope, Timer, es) {
   
@@ -71,7 +70,25 @@ app.controller('LiveCtrl', function($scope, Timer, es) {
 
         $scope.currentDate = moment().format("MMM Do, YYYY | h:mmA");
         $scope.liveTotals = [];
+        $scope.exampleData = [
+                {
+                    "key": "Series 1",
+                    "values": [ [ 1025409600000 , 0] , [ 1028088000000 , -6.3382185140371] , [ 1030766400000 , -5.9507873460847] , [ 1033358400000 , -11.569146943813] , [ 1036040400000 , -5.4767332317425] , [ 1038632400000 , 0.50794682203014] , [ 1041310800000 , -5.5310285460542] , [ 1043989200000 , -5.7838296963382] , [ 1046408400000 , -7.3249341615649] , [ 1049086800000 , -6.7078630712489] , [ 1051675200000 , 0.44227126150934] , [ 1054353600000 , 7.2481659343222] , [ 1056945600000 , 9.2512381306992] ]
+                }
+            ];
 
+        $scope.colorFunction = function() {
+          return function(d, i) {
+              return '#e40202'
+            };
+        }
+        $scope.toolTipContentFunction = function(){
+          return function(key, x, y, e, graph) {
+              return  'Super New Tooltip' +
+                  '<h1>' + key + '</h1>' +
+                    '<p>' +  y + ' at ' + x + '</p>'
+          }
+        }
         angular.forEach(resp.facets.currentData.ranges, function ( numbers) {
           $scope.liveTotals.push({ 
               finish : moment(numbers.to).format("h:mmA"), 
@@ -226,8 +243,6 @@ app.controller('datedCtrl', function($scope, es) {
     $scope.last24_total       = accounting.formatMoney(resp.facets.last24_total.ranges[0].total);
     $scope.last24_total_start = moment(resp.facets.last24_total.ranges[0].from).format("MMM Do, YYYY | h:mmA");
     $scope.last24_total_end   = moment(resp.facets.last24_total.ranges[0].to).format("MMM Do, YYYY | h:mmA");
-
-    console.log(resp.facets.last7days)
 
     angular.forEach(resp.facets.last24.ranges, function ( numbers) {
       $scope.last24.push({ 
