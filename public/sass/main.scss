@@ -5,6 +5,8 @@
 @import "flexbox";
 
 // Site imports
+@import "_vars";
+@import "_header";
 
 //Global Overwrites  
 body, html{
@@ -17,8 +19,33 @@ body, html{
 }
 
 main{
-  padding: 10%;
-  p{
-    padding-top: 1em;
+  padding: 4rem 0 2rem 0;
+  section{
+    padding: 5%;     
+    h1{
+      font-weight: 500;
+      padding: 1em 0 0 0;
+      font-size: 1.4em;
+    }
+    h2{
+      font-weight: 300; 
+      font-style: italic;
+      padding: 0 0 1em 0;
+      border-bottom: #444 1px solid; 
+      margin-bottom: 1em;
+    }
+  }
+}
+
+main.login{
+  padding: 12rem 5%; 
+  text-align: center;
+  a{
+    color: $red;
+    font-size: 1.2em;
+    border: 2px solid $red;
+    padding: 1em 2em;
+    border-radius: 10px;
+    text-decoration: none;
   }
 }

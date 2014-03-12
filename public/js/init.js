@@ -69,9 +69,7 @@ app.controller('LiveCtrl', function($scope, Timer, es) {
 
       }).then(function (resp) {
 
-        console.log("!-- live");
-
-        $scope.currentDate = moment().format("MMM Do, YYYY");
+        $scope.currentDate = moment().format("MMM Do, YYYY | h:mmA");
         $scope.liveTotals = [];
 
         angular.forEach(resp.facets.currentData.ranges, function ( numbers) {
@@ -81,7 +79,6 @@ app.controller('LiveCtrl', function($scope, Timer, es) {
               price : accounting.formatMoney(numbers.total) 
             });
         });
-
 
       }, function (err) {console.log(err)});
 
@@ -105,8 +102,6 @@ app.factory("Timer", function ($timeout) {
 
 
 app.controller('datedCtrl', function($scope, es) {
-  
-  //$scope.date = moment().format("MMM Do, YYYY");
 
   es.search({
     size: 10, 

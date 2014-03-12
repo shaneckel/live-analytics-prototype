@@ -10,10 +10,12 @@ html(lang='en')
     link(href="css/main.css", rel="stylesheet")
 
   body
-    main
-      p No More Rack / Log in
+    header
+      h1 MCI 
+
+    main.login
       p 
         a(href="/auth/google") Log in with google 
 
-      if (message.length)
+    if (message.length)
       p.error #{message}

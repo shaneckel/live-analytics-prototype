@@ -1,0 +1,39 @@
+header{ 
+  @include box-shadow(#555 2px 2px 10px);
+  @include display-flex();
+  @include justify-content(center);
+  @include align-items(center);
+
+  width: 100%;
+  position: fixed;
+  color: #d8d8d8; 
+  background: #2a2a2a;
+  h1{
+    @include flex(1);
+    color: $red;
+    padding: $gutterSize;
+    margin-top: $load-bar-height;
+    border-bottom: $navborderB;
+    font-size: 1.6em;
+    font-weight: 900;
+
+    span{
+      font-size: 1.2rem; 
+      font-weight: 400;
+      color:  #787878; 
+      display: inline-block;
+      vertical-align: top;
+      padding-top: .1rem;
+    }
+  }
+  p{
+    @include flex(1);
+    text-align: right; 
+    padding-right: 10px; 
+    color: #787878;
+    a{
+      color: #c1c1c1;
+      text-decoration: none;
+    }
+  }
+}
