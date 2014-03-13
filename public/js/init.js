@@ -76,7 +76,6 @@ app.controller('LiveCtrl', function($scope, Timer, es) {
         angular.forEach(resp.facets.currentData.ranges, function ( numbers) {
           
           facetArray.push([ numbers.to, numbers.total ]);
-          console.log(moment(numbers.to).format("hh:mmA"));
           $scope.liveTotals.push({ 
             finish : moment(numbers.to).format("h:mmA"), 
             start : moment(numbers.from).format("h:mmA"), 
@@ -91,25 +90,10 @@ app.controller('LiveCtrl', function($scope, Timer, es) {
             "values": facetArray
           }
         ];
-        console.log($scope.liveDataChart);
         
-        $scope.xAxisTickFormat_Time_Format = function(){
-          return function(d){
-              return moment(d).format("h:mmA"); 
-            }
-        }
-        
-        $scope.colorFunction = function() {
-          return function(d, i) {
-            return '#e40202'
-          };
-        }
-
-        $scope.valueFormatFunction = function(){
-          return function(d){
-            return accounting.formatMoney(d);
-          };
-        }
+        $scope.xAxisTickFormat_Time_Format = function(){ return function(d){ return moment(d).format("h:mmA")}}
+        $scope.colorFunction = function() { return function(d, i) { return '#e40202' }}
+        $scope.valueFormatFunction = function(){ return function(d){ return accounting.formatMoney(d)}}
 
       }, function (err) {console.log(err)});
 
@@ -248,8 +232,11 @@ app.controller('datedCtrl', function($scope, es) {
 
   }).then(function (resp) {
     
-    $scope.last24   = [];
-    $scope.last7    = [];
+    var last24Array = [];
+    var last7Array = [];
+
+    $scope.last24 = [];
+    $scope.last7 = [];
 
     $scope.currentDate        = moment().format("MMM Do, YYYY");
     $scope.yesterday          = moment().subtract('days', 1).format("MMM Do, YYYY");
@@ -259,6 +246,9 @@ app.controller('datedCtrl', function($scope, es) {
     $scope.last24_total_end   = moment(resp.facets.last24_total.ranges[0].to).format("MMM Do, YYYY | h:mmA");
 
     angular.forEach(resp.facets.last24.ranges, function ( numbers) {
+
+      last24Array.push([ numbers.to, numbers.total ]);
+
       $scope.last24.push({ 
           finish : moment(numbers.to).format("h:mmA"), 
           start : moment(numbers.from).format("h:mmA"), 
@@ -271,13 +261,39 @@ app.controller('datedCtrl', function($scope, es) {
     $scope.last7_total_end    = moment(resp.facets.last7_total.ranges[0].to).format("MMM Do, YYYY");
 
     angular.forEach(resp.facets.last7days.ranges, function ( numbers) {
-      $scope.last7.push({ 
+
+        last7Array.push([ numbers.to, numbers.total ]);
+
+        $scope.last7.push({ 
           finish : moment(numbers.to).format("MMM Do"), 
           start : moment(numbers.from).format("MMM Do"), 
           price : accounting.formatMoney(numbers.total) 
         });
     });
+        
+    $scope.last7Chart = [
+      {
+        "key": "Live Data",
+        "values": last7Array
+      }
+    ];
 
+    $scope.last24Chart = [
+      {
+        "key": "Live Data",
+        "values": last24Array
+      }
+    ];
+
+    $scope.xAxisTickFormat_Time_Format_t = function(){ return function(d){ return moment(d).format("h:mmA")}}
+    $scope.xAxisTickFormat_Time_Format_m = function(){ return function(d){ return moment(d).format("MMM Do")}}
+    $scope.colorFunction = function() { return function(d, i) { return '#e40202' }}
+    $scope.valueFormatFunction = function(){ return function(d){ return accounting.formatMoney(d)}}
+    $scope.toolTipContentFunction = function(){return function(key, x, y, e, graph) {
+      return '<h5>' +   accounting.formatMoney(y)  + ' at ' + x + '</h5>'
+    }
+
+    }
     $scope.hits               = resp.hits.hits;
     $scope.facets             = accounting.formatMoney(resp.facets.total_money.terms[0].total);
  

@@ -26,7 +26,7 @@ html(lang='en')
             nvd3-discrete-bar-chart(
               data="liveDataChart",
               id="liveData",
-              height="180",
+              height="120",
               showXAxis="true",
               color="colorFunction()",
               showValues="true",
@@ -44,19 +44,55 @@ html(lang='en')
         section.last24
           h1 Last 24 hours break down
           h2 {{yesterday}} to {{currentDate}}. 
-          div(ng-repeat="hours in last24 track by $index")
-            p {{hours.start}} - {{hours.finish}} : {{hours.price}}
-          p total from {{last24_total_start}} to {{last24_total_end}}.
-          p {{last24_total}}
+
+          div.d3
+            nvd3-line-chart(
+              data="last24Chart",
+              id="twentyfun",
+              height="140",
+              showXAxis="true",
+              color="colorFunction()",
+              showValues="true",
+              interactive="true",
+              margin="{left:30,top:10,bottom:30,right:30}",
+              xAxisTickFormat="xAxisTickFormat_Time_Format_t()",
+              valueFormat="valueFormatFunction()",
+              tooltips="true",
+              tooltipcontent="toolTipContentFunction()")
+         
+          aside
+            div(ng-repeat="hours in last24 track by $index")
+              h3 {{hours.start}} - {{hours.finish}} 
+              h4 {{hours.price}}
+
+          p Total from {{last24_total_start}} to {{last24_total_end}} is 
+            span {{last24_total}}
 
         section.sevendays
           h1 Last 7 days break down 
           h2 {{yesterday}} to {{currentDate}}. 
-          div(ng-repeat="days in last7 track by $index")
-            p {{days.start}} - {{days.finish}} : {{days.price}}
-          p total from {{last7_total_start}} to {{last7_total_end}}.
-          p {{last7_total}}
 
+          div.d3
+            nvd3-discrete-bar-chart(
+              data="last7Chart",
+              id="sevenfun",
+              height="140",
+              showXAxis="true",
+              color="colorFunction()",
+              showValues="true",
+              interactive="true",
+              margin="{left:0,top:10,bottom:30,right:0}",
+              xAxisTickFormat="xAxisTickFormat_Time_Format_m()",
+              valueFormat="valueFormatFunction()")
+          
+          aside
+            div(ng-repeat="days in last7 track by $index")
+              h3 {{days.start}} - {{days.finish}}
+              h4 {{days.price}}
+          p Total from {{last7_total_start}} to {{last7_total_end}} is 
+            span {{last7_total}}
+
+          
     script(src='/js/moment.min.js')
     script(src='/js/accounting.min.js')
 

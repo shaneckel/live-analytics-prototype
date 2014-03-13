@@ -52,24 +52,42 @@ main.login{
     text-align: center; 
   }
 }
+
 .d3{
   padding-top: 2.5%; 
+}
+section{
+  p{
+    font-size: 1rem;
+    padding-top: 2.5%; 
+    font-weight: 400;
+    margin-top: 2.5%; 
+    span{
+      font-weight: 600;
+    }
+  }
+  h5{
+    padding: 1em;
+  }
 }
 aside{
   @include display-flex();
   @include justify-content(center);
-  @include align-items(center);
-
+  @include align-items(left);
   div{
     @include flex(1);
-    text-align: center; 
+    @include flex-basis(120px);
+    @include flex-direction(row);
+    @include flex-wrap(wrap);
+    padding-top: 20px;
+    text-align: left; 
   }
   h4{
     font-size: .7em;
     font-style: italic;
   }
   h3{
-    font-size: 1.1em;
+    font-size: .9em;
     font-weight: 400;
   }
 }
