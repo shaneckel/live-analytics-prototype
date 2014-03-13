@@ -17,7 +17,7 @@ html(lang='en')
           a(href="/auth/logout") Logout
 
     main(data-ng-cloak)
-      article.livedata(ng-controller="LiveCtrl")
+      article.livedata(ng-controller="LiveCtrl", data-ng-cloak )
   
         section.live
           h1 Current break down
@@ -40,7 +40,7 @@ html(lang='en')
               h3 {{total.price}}
               h4 {{total.start}} - {{total.finish}}
 
-      article.olddata(ng-controller="datedCtrl")
+      article.olddata(ng-controller="datedCtrl", data-ng-cloak)
         section.last24
           h1 Last 24 hours break down
           h2 {{yesterday}} to {{currentDate}}. 
@@ -61,9 +61,10 @@ html(lang='en')
               tooltipcontent="toolTipContentFunction()")
          
           aside
-            div(ng-repeat="hours in last24 track by $index")
-              h3 {{hours.start}} - {{hours.finish}} 
-              h4 {{hours.price}}
+            div.hours(ng-repeat="hours in last24 track by $index")
+              h1 {{hours.start}}
+              h3 {{hours.price}}
+              h4 {{hours.start}} - {{hours.finish}} 
 
           p Total from {{last24_total_start}} to {{last24_total_end}} is 
             span {{last24_total}}
@@ -87,8 +88,9 @@ html(lang='en')
           
           aside
             div(ng-repeat="days in last7 track by $index")
-              h3 {{days.start}} - {{days.finish}}
-              h4 {{days.price}}
+              h3 {{days.price}}
+              h4 {{days.start}} - {{days.finish}}
+ 
           p Total from {{last7_total_start}} to {{last7_total_end}} is 
             span {{last7_total}}
 

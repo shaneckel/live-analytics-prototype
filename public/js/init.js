@@ -3,7 +3,7 @@
 var app = angular.module('nomorerack', ['elasticsearch', 'nvd3ChartDirectives']);
 
 app.controller('LiveCtrl', function($scope, Timer, es) {
-  
+
   var liveAmount = 20;
 
   $scope.$watch( 
@@ -50,6 +50,7 @@ app.controller('LiveCtrl', function($scope, Timer, es) {
                 key_field : "_timestamp",
                 value_field : "receipt.summary.total",
                 ranges : [
+                  //generate this using a loop.
                   { from : moment().subtract('minutes', 15).valueOf(),  to : moment().valueOf() },
                   { from : moment().subtract('minutes', 30).valueOf(),  to : moment().subtract('minutes', 15).valueOf() },
                   { from : moment().subtract('minutes', 45).valueOf(),  to : moment().subtract('minutes', 30).valueOf() },
@@ -175,6 +176,7 @@ app.controller('datedCtrl', function($scope, es) {
             key_field : "_timestamp",
             value_field : "receipt.summary.total",
             ranges : [
+              //generate this using a loop.
               { from : moment().startOf('hour').valueOf(),  to : moment().valueOf() },
               { from : moment().startOf('hour').subtract('hour', 1).valueOf(),  to : moment().startOf('hour').valueOf() },
               { from : moment().startOf('hour').subtract('hour', 2).valueOf(),  to : moment().startOf('hour').subtract('hour', 1).valueOf() },
@@ -238,12 +240,12 @@ app.controller('datedCtrl', function($scope, es) {
     $scope.last24 = [];
     $scope.last7 = [];
 
-    $scope.currentDate        = moment().format("MMM Do, YYYY");
-    $scope.yesterday          = moment().subtract('days', 1).format("MMM Do, YYYY");
+    $scope.currentDate = moment().format("MMM Do, YYYY");
+    $scope.yesterday = moment().subtract('days', 1).format("MMM Do, YYYY");
 
-    $scope.last24_total       = accounting.formatMoney(resp.facets.last24_total.ranges[0].total);
+    $scope.last24_total = accounting.formatMoney(resp.facets.last24_total.ranges[0].total);
     $scope.last24_total_start = moment(resp.facets.last24_total.ranges[0].from).format("MMM Do, YYYY | h:mmA");
-    $scope.last24_total_end   = moment(resp.facets.last24_total.ranges[0].to).format("MMM Do, YYYY | h:mmA");
+    $scope.last24_total_end = moment(resp.facets.last24_total.ranges[0].to).format("MMM Do, YYYY | h:mmA");
 
     angular.forEach(resp.facets.last24.ranges, function ( numbers) {
 
@@ -256,9 +258,9 @@ app.controller('datedCtrl', function($scope, es) {
         });
     });
 
-    $scope.last7_total        = accounting.formatMoney(resp.facets.last7_total.ranges[0].total);
-    $scope.last7_total_start  = moment(resp.facets.last7_total.ranges[0].from).format("MMM Do, YYYY");
-    $scope.last7_total_end    = moment(resp.facets.last7_total.ranges[0].to).format("MMM Do, YYYY");
+    $scope.last7_total = accounting.formatMoney(resp.facets.last7_total.ranges[0].total);
+    $scope.last7_total_start = moment(resp.facets.last7_total.ranges[0].from).format("MMM Do, YYYY");
+    $scope.last7_total_end = moment(resp.facets.last7_total.ranges[0].to).format("MMM Do, YYYY");
 
     angular.forEach(resp.facets.last7days.ranges, function ( numbers) {
 
@@ -270,32 +272,26 @@ app.controller('datedCtrl', function($scope, es) {
           price : accounting.formatMoney(numbers.total) 
         });
     });
-        
     $scope.last7Chart = [
       {
         "key": "Live Data",
         "values": last7Array
       }
     ];
-
     $scope.last24Chart = [
       {
         "key": "Live Data",
         "values": last24Array
       }
     ];
-
     $scope.xAxisTickFormat_Time_Format_t = function(){ return function(d){ return moment(d).format("h:mmA")}}
     $scope.xAxisTickFormat_Time_Format_m = function(){ return function(d){ return moment(d).format("MMM Do")}}
     $scope.colorFunction = function() { return function(d, i) { return '#e40202' }}
     $scope.valueFormatFunction = function(){ return function(d){ return accounting.formatMoney(d)}}
-    $scope.toolTipContentFunction = function(){return function(key, x, y, e, graph) {
-      return '<h5>' +   accounting.formatMoney(y)  + ' at ' + x + '</h5>'
-    }
-
-    }
-    $scope.hits               = resp.hits.hits;
-    $scope.facets             = accounting.formatMoney(resp.facets.total_money.terms[0].total);
+    $scope.toolTipContentFunction = function(){return function(key, x, y, e, graph) { return '<h5>' +   accounting.formatMoney(y)  + ' at ' + x + '</h5>'}}
+    
+    $scope.hits = resp.hits.hits;
+    $scope.facets = accounting.formatMoney(resp.facets.total_money.terms[0].total);
  
   }, function (err) { console.log(err) });
 

@@ -58,10 +58,9 @@ main.login{
 }
 section{
   p{
-    font-size: 1rem;
-    padding-top: 2.5%; 
-    font-weight: 400;
-    margin-top: 2.5%; 
+    font-size: .9rem;
+    font-weight: 300;
+    margin-top: 2.5%;
     span{
       font-weight: 600;
     }
@@ -72,22 +71,36 @@ section{
 }
 aside{
   @include display-flex();
-  @include justify-content(center);
+  @include justify-content(left);
   @include align-items(left);
+  @include flex-direction(row);
+  @include flex-wrap(wrap);
+  
   div{
     @include flex(1);
+    @include flex-basis(80px);
+
+    padding-top: 5%;
+    padding-top: 0;
+    text-align: left;
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    padding-left: 2px;
+    padding-bottom: 2px;
+  }
+  div.hours{
     @include flex-basis(120px);
-    @include flex-direction(row);
-    @include flex-wrap(wrap);
-    padding-top: 20px;
-    text-align: left; 
+  }
+  h1{
+    font-weight: 300;
+    font-size: 1.2em;
   }
   h4{
     font-size: .7em;
     font-style: italic;
   }
   h3{
-    font-size: .9em;
+    font-size: 1em;
     font-weight: 400;
   }
 }
