@@ -18,18 +18,19 @@ html(lang='en')
 
     main(data-ng-cloak)
       article.livedata(ng-controller="LiveCtrl")
-        
-        nvd3-multi-bar-chart(
-          data="exampleData",
-          id="exampleId",
-          height="250",
-          showXAxis="true",
-          showYAxis="true",
-          color="colorFunction()")
-          
+  
         section.live
           h1 Current break down
           h2 {{currentDate}}
+          nvd3-line-chart(
+            data="exampleData",
+            id="stackExample",
+            height="200",
+            showYAxis="true",
+            color="colorFunction()",
+            yAxisTickFormat="yAxisTickFormatFunction()",
+            showValues="true"
+          )
           div(ng-repeat="total in liveTotals track by $index")
             p {{total.start}} - {{total.finish}} : {{total.price}}
 
