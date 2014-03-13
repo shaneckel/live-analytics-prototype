@@ -22,17 +22,23 @@ html(lang='en')
         section.live
           h1 Current break down
           h2 {{currentDate}}
-          nvd3-line-chart(
-            data="exampleData",
-            id="stackExample",
-            height="200",
-            showYAxis="true",
-            color="colorFunction()",
-            yAxisTickFormat="yAxisTickFormatFunction()",
-            showValues="true"
-          )
-          div(ng-repeat="total in liveTotals track by $index")
-            p {{total.start}} - {{total.finish}} : {{total.price}}
+          div.d3
+            nvd3-discrete-bar-chart(
+              data="liveDataChart",
+              id="liveData",
+              height="180",
+              showXAxis="true",
+              color="colorFunction()",
+              showValues="true",
+              interactive="true",
+              margin="{left:0,top:10,bottom:30,right:0}",
+              xAxisTickFormat="xAxisTickFormat_Time_Format()",
+              valueFormat="valueFormatFunction()")
+         
+          aside
+            div.item(ng-repeat="total in liveTotals track by $index")
+              h3 {{total.price}}
+              h4 {{total.start}} - {{total.finish}}
 
       article.olddata(ng-controller="datedCtrl")
         section.last24
