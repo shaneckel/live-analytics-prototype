@@ -1,6 +1,6 @@
 #!/bin/env node
 
-// nomorerack analytics 
+// live analytics
 
 var express         = require('express'),
     passport        = require('passport'),
@@ -16,7 +16,7 @@ var ipaddress       = process.env.OPENSHIFT_NODEJS_IP || "localhost";
 
 app.configure(function () {
     app.set('views', __dirname + '/public/views');
-    app.set('view engine', 'jade');    
+    app.set('view engine', 'jade');
     app.use(express.json());
     app.use(express.urlencoded());
     app.use(express.methodOverride());
@@ -44,5 +44,5 @@ passport.deserializeUser(user.deserializeUser);
 app.use(app.router);
 
 require('./routes.js')(app);
- 
-app.listen( port, ipaddress, function() { console.log("\n--- nomorerack analytics ---\n") });
+
+app.listen( port, ipaddress, function() { console.log("\n--- live analytics ---\n") });

@@ -1,15 +1,15 @@
-// nomorerack.com live analytics 
+// live analytics
 
-var app = angular.module('nomorerack', ['elasticsearch', 'nvd3ChartDirectives']);
+var app = angular.module('app', ['elasticsearch', 'nvd3ChartDirectives']);
 
 app.controller('LiveCtrl', function($scope, Timer, es) {
 
   var liveAmount = 20;
 
-  $scope.$watch( 
+  $scope.$watch(
     function () { return Timer.data }, function (data) {
       es.search({
-        size: 0, 
+        size: 0,
         body :{
           query: {
             filtered: {
@@ -63,7 +63,7 @@ app.controller('LiveCtrl', function($scope, Timer, es) {
                   { from : moment().subtract('minutes', 150).valueOf(), to : moment().subtract('minutes', 135).valueOf() },
                 ]
               }
-            }      
+            }
           }
         }
 
@@ -75,23 +75,23 @@ app.controller('LiveCtrl', function($scope, Timer, es) {
         var facetArray = [];
 
         angular.forEach(resp.facets.currentData.ranges, function ( numbers) {
-          
+
           facetArray.push([ numbers.to, numbers.total ]);
-          $scope.liveTotals.push({ 
-            finish : moment(numbers.to).format("h:mmA"), 
-            start : moment(numbers.from).format("h:mmA"), 
-            price : accounting.formatMoney(numbers.total) 
+          $scope.liveTotals.push({
+            finish : moment(numbers.to).format("h:mmA"),
+            start : moment(numbers.from).format("h:mmA"),
+            price : accounting.formatMoney(numbers.total)
           });
 
         });
-        
+
         $scope.liveDataChart = [
           {
             "key": "Live Data",
             "values": facetArray
           }
         ];
-        
+
         $scope.xAxisTickFormat_Time_Format = function(){ return function(d){ return moment(d).format("h:mmA")}}
         $scope.colorFunction = function() { return function(d, i) { return '#e40202' }}
         $scope.valueFormatFunction = function(){ return function(d){ return accounting.formatMoney(d)}}
@@ -120,7 +120,7 @@ app.factory("Timer", function ($timeout) {
 app.controller('datedCtrl', function($scope, es) {
 
   es.search({
-    size: 10, 
+    size: 10,
     body :{
       query: {
         filtered: {
@@ -233,7 +233,7 @@ app.controller('datedCtrl', function($scope, es) {
     }
 
   }).then(function (resp) {
-    
+
     var last24Array = [];
     var last7Array = [];
 
@@ -251,10 +251,10 @@ app.controller('datedCtrl', function($scope, es) {
 
       last24Array.push([ numbers.to, numbers.total ]);
 
-      $scope.last24.push({ 
-          finish : moment(numbers.to).format("h:mmA"), 
-          start : moment(numbers.from).format("h:mmA"), 
-          price : accounting.formatMoney(numbers.total) 
+      $scope.last24.push({
+          finish : moment(numbers.to).format("h:mmA"),
+          start : moment(numbers.from).format("h:mmA"),
+          price : accounting.formatMoney(numbers.total)
         });
     });
 
@@ -266,10 +266,10 @@ app.controller('datedCtrl', function($scope, es) {
 
         last7Array.push([ numbers.to, numbers.total ]);
 
-        $scope.last7.push({ 
-          finish : moment(numbers.to).format("MMM Do"), 
-          start : moment(numbers.from).format("MMM Do"), 
-          price : accounting.formatMoney(numbers.total) 
+        $scope.last7.push({
+          finish : moment(numbers.to).format("MMM Do"),
+          start : moment(numbers.from).format("MMM Do"),
+          price : accounting.formatMoney(numbers.total)
         });
     });
     $scope.last7Chart = [
@@ -289,10 +289,10 @@ app.controller('datedCtrl', function($scope, es) {
     $scope.colorFunction = function() { return function(d, i) { return '#e40202' }}
     $scope.valueFormatFunction = function(){ return function(d){ return accounting.formatMoney(d)}}
     $scope.toolTipContentFunction = function(){return function(key, x, y, e, graph) { return '<h5>' +   accounting.formatMoney(y)  + ' at ' + x + '</h5>'}}
-    
+
     $scope.hits = resp.hits.hits;
     $scope.facets = accounting.formatMoney(resp.facets.total_money.terms[0].total);
- 
+
   }, function (err) { console.log(err) });
 
 });
@@ -301,6 +301,6 @@ app.service('es', function (esFactory) {
   return esFactory({
     host: '72.2.112.177:9200',
     sniffOnStart: true,
-    sniffInterval: 300000 
+    sniffInterval: 300000
   });
 });

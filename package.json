@@ -1,7 +1,7 @@
 {
-  "name": "nomorerack",
+  "name": "liveanalyticsprototype",
   "version": "0.0.0",
-  "description": "nomorerack analytics",
+  "description": "live analytics prototype",
   "main": "server.js",
   "author": "",
   "license": "BSD-2-Clause",

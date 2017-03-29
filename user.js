@@ -1,15 +1,15 @@
 
-//mci.js / user
+// user
 
 var _               = require('underscore'),
     passport        = require('passport'),
     googleStrategy  = require('passport-google').Strategy;
-   
+
 module.exports = {
-  
+
   googleStrategy: function(ipaddress, port) {
-    
-    var baseUrl     = "http://nomorerack-shaneckel.rhcloud.com/";
+
+    var baseUrl     = "#";
 
     if(ipaddress === "localhost")
       baseUrl = "http://" + ipaddress + ":" + port + "/";
@@ -25,7 +25,7 @@ module.exports = {
 
 
       if(profile.emails[0].value.indexOf("@brandingbrand.com") !== -1){
- 
+
         user = {
           username: profile.name.givenName || 'Admin',
           email: profile.emails[0].value
@@ -34,8 +34,8 @@ module.exports = {
         done(null, user);
 
       }else{
-        done(null, false, { 
-          message: "I'm sorry but " + profile.emails[0].value + " isn't on the list." 
+        done(null, false, {
+          message: "I'm sorry but " + profile.emails[0].value + " isn't on the list."
         });
       }
     });
